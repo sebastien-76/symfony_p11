@@ -33,19 +33,31 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
 
         $this->loadAdmins();
     }
-    //Défini les valeurs de user qui vont être stockées en bdd
+
     public function loadAdmins(): void
     {
-        //Défini les paramètres du user admin
-        $user = new User();
-        $user->setEmail('admin@example.com');
-        $password = $this ->hasher->hashPassword($user, '123');
-        $user->setPassword($password);
-        $user->setRoles(['ROLE_ADMIN']);
+        //Défini les valeurs de user qui vont être stockées en bdd
+        $datas = [
+            [
+                'email' => 'admin@example.com',
+                'password' => '123',
+                'roles' => ['ROLE_ADMIN'],
+            ],
+        ];
+
+        foreach ($datas as $data) {
+            $user = new User();
+            $user->setEmail($data['email']);
+            $password = $this->hasher->hashPassword($user, $data['password']);
+            $user->setPassword($password);
+            $user->setRoles($data['roles']);
+
+            $this->manager->persist($user);
 
         //Permet de pousser les données en base de données
         //indique que la variable user doit être stockée en bdd
         $this->manager->persist($user);
+        }
         //génére et execute le code sql qui va stocker les données en bdd
         $this->manager->flush();
     }

@@ -157,6 +157,12 @@ class Project
     {
         return $this->tags;
     }
+    public function setTags(Collection $Tags): static
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
 
     public function addTag(Tag $tag): static
     {
@@ -173,4 +179,5 @@ class Project
 
         return $this;
     }
+
 }
