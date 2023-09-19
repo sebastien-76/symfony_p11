@@ -18,7 +18,7 @@ class ProjectType extends AbstractType
             ->add('startDate')
             ->add('checkpointDate')
             ->add('deliveryDate')
-//            ->add('students')
+            ->add('students')
             ->add('tags')
         ;
     }
